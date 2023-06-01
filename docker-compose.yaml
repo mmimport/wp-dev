@@ -8,7 +8,7 @@ services:
     env_file: .env
     volumes: 
       - ./dbdata:/var/lib/mysql
-      - ./my.cnf:/etc/my.cnf  
+      - ./my.cnf:/etc/my.cnf
     command: '--default-authentication-plugin=mysql_native_password'
     networks:
       - app-network
@@ -27,7 +27,7 @@ services:
     env_file: .env
     volumes:
       - /var/www/public_html:/var/www/html
-        #- ./docker-php-ext-soap.ini:/usr/local/etc/php/conf.d/docker-php-ext-soap.ini 
+      - ./docker-php-ext-soap.ini:/usr/local/etc/php/conf.d/docker-php-ext-soap.ini 
         #      - ./php.ini-development:/usr/local/etc/php/php.ini-development 
       - ./php.ini-production:/usr/local/etc/php/php.ini  
       - ./www.conf:/usr/local/etc/php-fpm.d/www.conf  
@@ -47,12 +47,11 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
-      - "443:443"  
+        #  - "443:443"  
     volumes:
       - /var/www/public_html:/var/www/html
-      - ./nginx_conf/default-ssl.conf:/etc/nginx/conf.d/default.conf
-      - /etc/letsencrypt/live/muymucho-dev.techxonn.com/fullchain.pem:/etc/letsencrypt/live/muymucho-dev.techxonn.com/fullchain.pem  
-      - /etc/letsencrypt/live/muymucho-dev.techxonn.com/privkey.pem:/etc/letsencrypt/live/muymucho-dev.techxonn.com/privkey.pem
+      - ./nginx_conf/default-test.conf:/etc/nginx/conf.d/default.conf
+#      - /etc/letsencrypt:/etc/letsencrypt  
       - /var/log/muymucho:/var/log/nginx  
     networks:
       - app-network
